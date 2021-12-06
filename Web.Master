@@ -1,0 +1,119 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Web.master.cs" Inherits="Assignment7.Web" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="description" content="Assignment7" />
+    <meta name="keywords" content="HTML, CSS" />
+    <meta name="author" content="Lee De Bin & Ng May Chee" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div class="b1">
+            <div class="main">
+                <!--login and logout-->
+                <asp:LoginView ID="LoginView1" runat="server">
+                    <LoggedInTemplate>
+                        <div id="user">
+                            <div id="loginname">
+                                <asp:LoginName ID="LoginName1" runat="server" ForeColor="White" />
+                            </div>
+                            <div id="loginstatus">
+                            <a onclick="userIconToggle()";>
+                                <i class='far fa-user-circle' style="color: white; font-size: 18px;"></i>
+                            </a>
+                                <div id="statuss">
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="White" Style="text-decoration: none" />
+                                </div>
+                            </div>
+                        </div>
+                    </LoggedInTemplate>
+                </asp:LoginView>
+                <header>
+                    <div class="wrapper">
+                        <h1>Puchong
+                            <br />
+                            Airlines
+                        </h1>
+                        <!--Task 1.5c heading 1-->
+                        <div class="right">
+                            <nav>
+                                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="True" StartingNodeOffset="0" />
+                                <asp:Menu ID="Menu1" runat="server" CssClass="MainMenu" MaximumDynamicDisplayLevels="1" StaticEnableDefaultPopOutImage="False" Orientation="Horizontal" DataSourceID="SiteMapDataSource1" ForeColor="White" StaticDisplayLevels="2" OnMenuItemDataBound="Menu1_MenuItemDataBound">
+                                </asp:Menu>
+                            </nav>
+                        </div>
+                    </div>
+                </header>
+            </div>
+            <!--breadcrumb-->
+            <asp:SiteMapPath ID="SiteMapPath2" runat="server" Font-Names="Verdana" Font-Size="0.8em" PathSeparator=" : ">
+                <CurrentNodeStyle ForeColor="white" />
+                <NodeStyle Font-Bold="True" ForeColor="white" />
+                <PathSeparatorStyle Font-Bold="True" ForeColor="white" />
+                <RootNodeStyle Font-Bold="True" ForeColor="white" />
+            </asp:SiteMapPath>
+        </div>
+
+        <div class="slideshowcontainer">
+            <img class="slideshow" src="/images/1.png" style="width: 100%">
+            <img class="slideshow" src="/images/3.jpg" style="width: 100%">
+            <img class="slideshow" src="/images/2.jpg" style="width: 100%">
+            <!--img source: https://thepointsguy.com/news/most-scenic-plane-routes-us/-->
+
+            <span class="prev" onclick="plus(1)">&#10094;</span>
+            <span class="next" onclick="plus(-1)">&#10095;</span>
+        </div>
+
+        <div id="mainBody">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <div class="b2">
+        <footer>
+            2020 &copy; Puchong Airlines Holding Co., Ltd. All Rights Reserved.
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        var index = 1;
+        slides(index);
+
+        function plus(n) {
+            slides(index += n);
+        }
+
+        function slides(num) {
+            var a;
+            var b = document.getElementsByClassName("slideshow");
+            if (num > b.length) { index = 1 }
+            if (num < 1) { index = b.length }
+            for (a = 0; a < b.length; a++) {
+                b[a].style.display = "none";
+            }
+            b[index - 1].style.display = "block";
+        }
+
+        function userIconToggle() {
+            var x = document.getElementById("statuss");
+            if (!x.style.display || x.style.display == "none") 
+                x.style.display = "block";
+             else 
+                x.style.display = "none";
+            
+        }
+    </script>
+</body>
+</html>
